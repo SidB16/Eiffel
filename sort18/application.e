@@ -19,9 +19,7 @@ feature {NONE} -- Initialization
 		local
 			array:ARRAY[INTEGER]
 		do
-			--| Add your code here
-			print ("Hello Eiffel World!%N")
-			array := <<8, 1,6, 10, 3>>
+			array := <<8, 1,6, 10, 3, 0, 14, 5, 6 ,3, 1, 2, 3, 4,6, 7, 2>>
 			insertionSort(array)
 			print(array)
 		end
@@ -45,10 +43,25 @@ feature 	--Sorting alogs
 				until
 					j = 1 or data.at (j) > data.at (j-1)
 				loop
+				--Approach 1:
+				--Note: This approach yeilds logically incorrect functionally.
+				--Eventhough syntatically its corrects and complis w/o errors.
+
+					--data[j] = data[j-1]
+					--j := j-1
+
+				--Why?
+				--Strictly my opinion based off intuition, Eiffel is old.
+				--Thus, to it data[j] = data[j-1] does not have the same meaning as in Java.
+				--Think about it...
+
+				--Approach 2:
 					buffer:= data.at (j)
 					data.put (data.at (j-1), j)
 					data.put (buffer, j-1)
 					j := j-1
+
+
 				end
 				data.put (currentE, j)
 				i:=i +1
