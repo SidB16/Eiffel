@@ -20,7 +20,7 @@ feature {NONE} -- Initialization
 			array:ARRAY[INTEGER]
 		do
 			array := <<8, 1,6, 10, 3, 0, 14, 5, 6 ,3, 1, 2, 3, 4,6, 7, 2>>
-			insertionSort(array)
+			selectionSort(array)
 			print(array)
 		end
 feature 	--Sorting alogs
@@ -66,7 +66,32 @@ feature 	--Sorting alogs
 				data.put (currentE, j)
 				i:=i +1
 			end
-
 		end
-
+	selectionSort(data:ARRAY[INTEGER])
+		local
+			i, j, minI, buffer, n:INTEGER
+		do --Strategy: walk up and find min
+			n := data.count
+			from
+			i := 1
+			until
+				i > n-1
+			loop
+				minI := i
+				j := i
+				from
+				until
+					j > n
+				loop
+					if data.at (minI) > data.at (j) then
+						minI := j
+					end
+					j := j +1
+				end
+				buffer := data.at (i)
+				data.put (data.at (minI), i)
+				data.put (buffer, minI)
+				i := i + 1
+			end
+		end
 end
