@@ -20,7 +20,7 @@ feature {NONE} -- Initialization
 			array:ARRAY[INTEGER]
 		do
 			array := <<8, 1,6, 10, 3, 0, 14, 5, 6 ,3, 1, 2, 3, 4,6, 7, 2>>
-			selectionSort(array)
+			heapsort(array)
 			print(array)
 		end
 feature 	--Sorting alogs
@@ -93,5 +93,55 @@ feature 	--Sorting alogs
 				data.put (buffer, minI)
 				i := i + 1
 			end
+		end
+	heapsort(data:ARRAY[INTEGER])
+		local
+			n, j, buffer:INTEGER
+			i:REAL_64
+		do
+			--Strategy: Build-heap and add max by walking down.
+			n := data.count
+
+
+			--Build heap from array input
+			from	--index starts at 1!
+				i:= (n/2)
+			until
+				i.floor < 1
+			loop
+				heapify(data, n, i.floor)
+				i := i.floor
+				i := i - 1
+			end
+
+
+			--add max by walking down
+			from
+				j:= n
+			until
+				j < 1
+			loop
+				buffer := data.at (1)
+				data.put (data.at (j), 1)
+				data.put (buffer, j)
+				heapify(data, j, 1)
+				j := j -1
+			end
+		end
+	heapify(data:ARRAY[INTEGER]; n, index:INTEGER)
+		local
+			largest, buffer:INTEGER
+		do
+			largest:= index
+			if 2*index < n and data.at (2*index) > data.at (largest) then largest:=2*index end
+			if 2*index+1 < n and data.at (2*index+1) > data.at (largest) then largest:= 2*index+1 end
+
+			if index /= largest then
+				buffer := data.at (index)
+				data.put (data.at (largest), index)
+				data.put (buffer, largest)
+				heapify(data, n, largest)
+			end
+
 		end
 end
