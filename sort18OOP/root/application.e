@@ -1,5 +1,5 @@
 note
-	description: "sort18OOP application root class"
+	description: "I struggled with encoding and dynamic binding in Eiffel. This is a how-to!"
 	date: "$Date$"
 	revision: "$Revision$"
 
